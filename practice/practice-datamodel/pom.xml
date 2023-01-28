@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kafka</groupId>
+        <artifactId>practice-pom</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>practice-datamodel</artifactId>
+
+    <properties>
+        <!--<schemaregistry.url>http://localhost:8081</schemaregistry.url>-->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/avro/</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                            <outputDirectory>${basedir}/target/generated-sources/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/target/generated-sources/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--===========================-->
+            <!--UNCOMMENT FOR HORTONWORKS SCHEMA REGISTRY-->
+            <!--<plugin>-->
+                <!--<groupId>com.github.frtu.governance</groupId>-->
+                <!--<artifactId>schema-registries-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+            <!--===========================-->
+            <!--UNCOMMENT FOR CONFLUENT SCHEMA REGISTRY-->
+            <!--https://docs.confluent.io/current/schema-registry/docs/maven-plugin.html-->
+            <!--<plugin>-->
+                <!--<groupId>io.confluent</groupId>-->
+                <!--<artifactId>kafka-schema-registry-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<schemaRegistryUrls>-->
+                        <!--<param>${schemaregistry.url}</param>-->
+                    <!--</schemaRegistryUrls>-->
+                    <!--<subjects>-->
+                        <!--<KafkaPractice>src/main/avro/Sample.avsc</KafkaPractice>-->
+                    <!--</subjects>-->
+                <!--</configuration>-->
+                <!--<goals>-->
+                    <!--<goal>register</goal>-->
+                <!--</goals>-->
+            <!--</plugin>-->
+            <!--===========================-->
+        </plugins>
+    </build>
+</project>

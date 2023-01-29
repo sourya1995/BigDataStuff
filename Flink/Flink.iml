@@ -28,7 +28,6 @@
     <orderEntry type="library" name="Maven: org.apache.flink:flink-core:1.16.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-annotations:1.16.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-metrics-core:1.16.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-asm-9:9.2-15.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-jackson:2.12.4-15.0" level="project" />
     <orderEntry type="library" name="Maven: com.esotericsoftware.kryo:kryo:2.24.0" level="project" />
     <orderEntry type="library" name="Maven: com.esotericsoftware.minlog:minlog:1.2" level="project" />
@@ -60,12 +59,30 @@
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-connector-twitter_2.12:1.14.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-streaming-java_2.12:1.14.6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.flink:flink-scala_2.12:1.14.6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-asm-7:7.1-14.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.flink:flink-table-common:1.16.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-asm-9:9.2-15.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.ibm.icu:icu4j:67.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-planner_2.12:1.16.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.janino:commons-compiler:3.0.11" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.janino:janino:3.0.11" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.flink:flink-scala_2.12:1.16.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.12.7" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.12.7" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.12.7" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.12:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: com.twitter:chill_2.12:0.7.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-runtime:1.16.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-cep:1.16.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-planner-blink_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.flink:flink-table-api-java:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-api-scala_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-api-java-bridge_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-api-scala-bridge_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-streaming-scala_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.flink:flink-table-runtime-blink_2.12:1.13.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.calcite.avatica:avatica-core:1.17.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.flink:force-shading:1.13.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.flink:flink-table-api-java-bridge:1.16.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.flink:flink-table-api-bridge-base:1.16.0" level="project" />
   </component>
 </module>

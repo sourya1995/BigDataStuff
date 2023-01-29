@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="362b673a-5700-41fa-bccb-f6c1f4a75262" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/CarListingsFiltering.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/CourseScoreExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/CustomerPurchasesProcessing.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/ReadingAndWritingFiles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/SentenceSplitting.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/Checkpointing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/DaysSincePriceThreshold.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/KeyedStreams.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/MaxClosingPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/flink/RollingAverageHighPrice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flink.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Flink.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

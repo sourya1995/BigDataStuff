@@ -19,9 +19,9 @@ public class StreamingTweets {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "localhost:9092");
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        DataStream<String> streamSource = env.addSource(new FlinkKafkaConsumer<>(Pattern.compile("cricket[-a-z0-9]*tweets"), new SimpleStringSchema(), properties));
+        DataStream<String> streamSource = env.addSource(new FlinkKafkaConsumer<>(Pattern.compile("random[-a-z0-9]*tweets"), new SimpleStringSchema(), properties));
         DataStream<String> tweets = streamSource.flatMap(new ExtractText());
-        tweets.addSink(new FlinkKafkaProducer<>("cricket-news", new SimpleStringSchema(), properties));
+        tweets.addSink(new FlinkKafkaProducer<>("random-tweet-result", new SimpleStringSchema(), properties));
         env.execute("Streaming Tweets");
     }
 

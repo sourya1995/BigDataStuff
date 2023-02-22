@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="362b673a-5700-41fa-bccb-f6c1f4a75262" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/advanced/SpeedLimitSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/advanced/StreamingSpeeds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Kafka/KafkaCricketTweetProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Kafka/KafkaProducer1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Kafka/KafkaIPLTweetProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Kafka/KafkaProducer2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Kafka/StreamingTweets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Kafka/StreamingTweets.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

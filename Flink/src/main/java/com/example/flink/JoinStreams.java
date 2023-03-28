@@ -52,7 +52,7 @@ public class JoinStreams {
         }
     }
 
-    private static class EmployeeDetailJoinFunction implements JoinFunction<Tuple2<String, String>, Tuple2<String, String>, Tuple3<String, String, String>> {
+    public static class EmployeeDetailJoinFunction implements JoinFunction<Tuple2<String, String>, Tuple2<String, String>, Tuple3<String, String, String>> {
 
         @Override
         public Tuple3<String, String, String> join(Tuple2<String, String> first, Tuple2<String, String> second) throws Exception {

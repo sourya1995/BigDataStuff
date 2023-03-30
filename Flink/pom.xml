@@ -134,6 +134,58 @@
             <artifactId>hbc-core</artifactId>
             <version>2.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-table-planner-blink -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_2.12</artifactId>
+            <version>1.13.6</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-table-common -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-common</artifactId>
+            <version>1.17.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-scala -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_2.12</artifactId>
+            <version>1.17.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-elasticsearch-base -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch-base</artifactId>
+            <version>3.0.0-1.16</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>8.6.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-client -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>8.6.2</version>
+        </dependency>
+
+
+
+
+
+
+
 
 
 

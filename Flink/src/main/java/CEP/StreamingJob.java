@@ -27,9 +27,19 @@ public class StreamingJob {
                 .where(new SimpleCondition<StockRecord>() {
                     @Override
                     public boolean filter(StockRecord stockRecord) throws Exception {
-                        return false;
+                        return stockRecord.getTicker().equals("something");
                     }
-                }).oneOrMore()
+                }).where(new SimpleCondition<StockRecord>() {
+                    @Override
+                    public boolean filter(StockRecord stockRecord) throws Exception {
+                        return stockRecord.getClosingPrice() > 1450;
+                    }
+                }).or(new SimpleCondition<StockRecord>() {
+                    @Override
+                    public boolean filter(StockRecord stockRecord) throws Exception {
+                        return stockRecord.getTags().contains("something more");
+                    }
+                })
                 .next("middle").where(new IterativeCondition<StockRecord>() {
                     @Override
                     public boolean filter(StockRecord stockRecord, Context<StockRecord> context) throws Exception {

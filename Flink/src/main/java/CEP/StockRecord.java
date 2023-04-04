@@ -65,8 +65,10 @@ public class StockRecord {
     @Override
     public String toString() {
         return "StockRecord{" +
-                "date='" + date + '\'' +
+                "ticker='" + ticker + '\'' +
+                ", date='" + date + '\'' +
                 ", closingPrice=" + closingPrice +
+                ", tags=" + tags +
                 '}';
     }
 }

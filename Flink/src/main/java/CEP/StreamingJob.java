@@ -1,6 +1,7 @@
 package CEP;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -19,8 +20,8 @@ public class StreamingJob {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
-        DataStream<StockRecord> event = env.socketTextStream("localhost", 9999)
-                .flatMap(new LineTokenizer());
+        DataStream<StockRecord> input = env.readTextFile("/path/to/file", 9999)
+                .map(new ConvertToStockRecordFn());
         Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("first").where(new SimpleCondition<StockRecord>() {
             @Override
             public boolean filter(StockRecord value) throws Exception {
@@ -47,15 +48,12 @@ public class StreamingJob {
         env.execute("Single Pattern Match");
     }
 
-    private static class LineTokenizer implements FlatMapFunction<String, StockRecord>{
+    private static class ConvertToStockRecordFn implements MapFunction<String, StockRecord> {
 
         @Override
-        public void flatMap(String value, Collector<StockRecord> out) throws Exception {
-            String[] tokens = value.split(",");
-            if(tokens.length == 4){
-                out.collect(new StockRecord(tokens[0].trim(),
-                        tokens[1].trim(), Float.parseFloat(tokens[2]), tokens[3].trim()));
-            }
+        public StockRecord map(String s) throws Exception {
+            String[] tokens = s.split(",");
+            return new StockRecord(tokens[8].trim(), tokens[0].trim(), Float.parseFloat(tokens[5].trim()), tokens[7].trim());
 
         }
     }

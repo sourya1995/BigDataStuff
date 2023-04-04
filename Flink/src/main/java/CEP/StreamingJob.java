@@ -16,31 +16,22 @@ import java.util.Map;
 public class StreamingJob {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
         DataStream<String> input = env.fromElements(
                 "Fred", "Ginger", "Bob", "Fred", "Ginger", "Ginger", "Fred", "Carly", "Ginger"
         );
-        Pattern<String, ?> pattern = Pattern.<String>begin("first").where(new SimpleCondition<String>() {
+        Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("first").where(new SimpleCondition<StockRecord>() {
             @Override
-            public boolean filter(String value) throws Exception {
-                return value.equals("Fred");
-            }
-        }).next("second").where(new SimpleCondition<String>() {
-            @Override
-            public boolean filter(String value) throws Exception {
-                return value.equals("Ginger");
-            }
-        }).next("third").where(new SimpleCondition<String>() {
-            @Override
-            public boolean filter(String value) throws Exception {
-                return value.equals("Bob");
+            public boolean filter(StockRecord value) throws Exception {
+                return value.getTags().contains("something");
             }
         });
-        PatternStream<String> patternStream = CEP.pattern(input, pattern);
-        DataStream<String> matches = patternStream.select(new PatternProcessFunction<String, String>() {
+        PatternStream<StockRecord> patternStream = CEP.pattern(input, pattern);
+        DataStream<StockRecord> matches = patternStream.select(new PatternProcessFunction<StockRecord, String>() {
 
             @Override
-            public void processMatch(Map<String, List<String>> map, Context context, Collector<String> collector) throws Exception {
-                collector.collect(map.get("first").toString() + " -> " + map.get("second").toString() + map.get("third").toString() );
+            public void processMatch(Map<String, List<StockRecord>> map, Context context, Collector<String> collector) throws Exception {
+                collector.collect(map.get("first").toString());
             }
         });
 

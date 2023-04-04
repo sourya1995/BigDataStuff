@@ -22,19 +22,16 @@ public class StreamingJob {
 
         DataStream<StockRecord> input = env.readTextFile("/path/to/file", 9999)
                 .map(new ConvertToStockRecordFn());
-        Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("first").where(new SimpleCondition<StockRecord>() {
-            @Override
-            public boolean filter(StockRecord value) throws Exception {
-                return value.getTags().contains("something");
-            }
-        }).times(3).optional().next("end").where(
-                new SimpleCondition<StockRecord>() {
-                    @Override
-                    public boolean filter(StockRecord stockRecord) throws Exception {
-                        return stockRecord.getTags().contains("Something More");
-                    }
-                }
-        )
+        Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("start").subtype(CloudPlatformStockRecord.class)
+                .next("middle").where(
+                        new SimpleCondition<StockRecord>() {
+                            @Override
+                            public boolean filter(StockRecord stockRecord) throws Exception {
+                                return stockRecord.getTags().contains("something");
+                            }
+                        }
+                );
+
         PatternStream<StockRecord> patternStream = CEP.pattern(event, pattern);
         DataStream<StockRecord> matches = patternStream.select(new PatternProcessFunction<StockRecord, String>() {
 
@@ -53,6 +50,11 @@ public class StreamingJob {
         @Override
         public StockRecord map(String s) throws Exception {
             String[] tokens = s.split(",");
+            String ticker = tokens[8].trim();
+
+            if(ticker.equals("AMZN") || ticker.equals("MSFT") || ticker.equals("GOOG")){
+                return new CloudPlatformStockRecord(ticker, tokens[0].trim(), Float.parseFloat(tokens[5].trim()), tokens[7].trim());
+            }
             return new StockRecord(tokens[8].trim(), tokens[0].trim(), Float.parseFloat(tokens[5].trim()), tokens[7].trim());
 
         }

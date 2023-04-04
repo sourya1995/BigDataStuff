@@ -1,5 +1,6 @@
 package CEP;
 
+import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -17,16 +18,23 @@ public class StreamingJob {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-        DataStream<String> input = env.fromElements(
-                "Fred", "Ginger", "Bob", "Fred", "Ginger", "Ginger", "Fred", "Carly", "Ginger"
-        );
+
+        DataStream<StockRecord> event = env.socketTextStream("localhost", 9999)
+                .flatMap(new LineTokenizer());
         Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("first").where(new SimpleCondition<StockRecord>() {
             @Override
             public boolean filter(StockRecord value) throws Exception {
                 return value.getTags().contains("something");
             }
-        });
-        PatternStream<StockRecord> patternStream = CEP.pattern(input, pattern);
+        }).times(3).optional().next("end").where(
+                new SimpleCondition<StockRecord>() {
+                    @Override
+                    public boolean filter(StockRecord stockRecord) throws Exception {
+                        return stockRecord.getTags().contains("Something More");
+                    }
+                }
+        )
+        PatternStream<StockRecord> patternStream = CEP.pattern(event, pattern);
         DataStream<StockRecord> matches = patternStream.select(new PatternProcessFunction<StockRecord, String>() {
 
             @Override
@@ -37,5 +45,18 @@ public class StreamingJob {
 
         matches.print();
         env.execute("Single Pattern Match");
+    }
+
+    private static class LineTokenizer implements FlatMapFunction<String, StockRecord>{
+
+        @Override
+        public void flatMap(String value, Collector<StockRecord> out) throws Exception {
+            String[] tokens = value.split(",");
+            if(tokens.length == 4){
+                out.collect(new StockRecord(tokens[0].trim(),
+                        tokens[1].trim(), Float.parseFloat(tokens[2]), tokens[3].trim()));
+            }
+
+        }
     }
 }

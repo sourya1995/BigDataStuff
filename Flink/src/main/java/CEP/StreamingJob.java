@@ -29,7 +29,7 @@ public class StreamingJob {
                     public boolean filter(StockRecord stockRecord) throws Exception {
                         return false;
                     }
-                })
+                }).oneOrMore()
                 .next("middle").where(new IterativeCondition<StockRecord>() {
                     @Override
                     public boolean filter(StockRecord stockRecord, Context<StockRecord> context) throws Exception {

@@ -61,4 +61,12 @@ public class StockRecord {
     public int hashCode() {
         return Objects.hash(ticker, date, closingPrice, tags);
     }
+
+    @Override
+    public String toString() {
+        return "StockRecord{" +
+                "date='" + date + '\'' +
+                ", closingPrice=" + closingPrice +
+                '}';
+    }
 }

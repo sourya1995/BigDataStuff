@@ -6,6 +6,7 @@ import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
 import org.apache.flink.cep.functions.PatternProcessFunction;
+import org.apache.flink.cep.nfa.aftermatch.AfterMatchSkipStrategy;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.cep.pattern.conditions.IterativeCondition;
 import org.apache.flink.cep.pattern.conditions.SimpleCondition;
@@ -23,6 +24,7 @@ public class StreamingJob {
 
         DataStream<StockRecord> input = env.readTextFile("/path/to/file")
                 .map(new ConvertToStockRecordFn());
+        AfterMatchSkipStrategy skipStrategy = AfterMatchSkipStrategy.noSkip();
         Pattern<StockRecord, ?> pattern = Pattern.<StockRecord>begin("start")
                 .where(new SimpleCondition<StockRecord>() {
                     @Override
@@ -34,7 +36,7 @@ public class StreamingJob {
                     public boolean filter(StockRecord stockRecord) throws Exception {
                         return stockRecord.getClosingPrice() > 1450;
                     }
-                }).or(new SimpleCondition<StockRecord>() {
+                }).oneOrMore().until(new SimpleCondition<StockRecord>() {
                     @Override
                     public boolean filter(StockRecord stockRecord) throws Exception {
                         return stockRecord.getTags().contains("something more");

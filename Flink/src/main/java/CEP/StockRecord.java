@@ -1,20 +1,61 @@
 package CEP;
 
+import org.joda.time.Instant;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class StockRecord {
     private String ticker;
-    private String date;
+    private long timestamp;
     private float closingPrice;
+
+    public StockRecord(String ticker, Instant instant, float closingPrice, List<String> tags) {
+        this.ticker = ticker;
+        this.timestamp = instant.getMillis();
+        this.closingPrice = closingPrice;
+        this.tags = tags;
+    }
+
     private List<String> tags;
 
-    public StockRecord(String ticker, String date, float closingPrice, String... tags) {
-        this.ticker = ticker;
-        this.date = date;
-        this.closingPrice = closingPrice;
-        this.tags = Arrays.asList(tags);
+    @Override
+    public String toString() {
+        LocalDateTime eventDateTime = LocalDateTime.ofEpochSecond(this.timestamp/1000, 0, ZoneOffset.UTC);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        String formattedEventTime = eventDateTime.format(formatter);
+        return "StockRecord{" +
+                "ticker='" + ticker + '\'' +
+                ", timestamp=" + timestamp +
+                ", closingPrice=" + closingPrice +
+                ", tags=" + tags +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StockRecord record = (StockRecord) o;
+        return timestamp == record.timestamp && Float.compare(record.closingPrice, closingPrice) == 0 && Objects.equals(ticker, record.ticker) && Objects.equals(tags, record.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticker, timestamp, closingPrice, tags);
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
     public String getTicker() {
@@ -49,26 +90,4 @@ public class StockRecord {
         this.tags = tags;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StockRecord that = (StockRecord) o;
-        return Float.compare(that.closingPrice, closingPrice) == 0 && ticker.equals(that.ticker) && date.equals(that.date) && tags.equals(that.tags);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ticker, date, closingPrice, tags);
-    }
-
-    @Override
-    public String toString() {
-        return "StockRecord{" +
-                "ticker='" + ticker + '\'' +
-                ", date='" + date + '\'' +
-                ", closingPrice=" + closingPrice +
-                ", tags=" + tags +
-                '}';
-    }
 }

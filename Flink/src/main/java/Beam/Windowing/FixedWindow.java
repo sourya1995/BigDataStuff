@@ -1,6 +1,7 @@
 package Beam.Windowing;
 
 import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Count;
@@ -27,12 +28,12 @@ public class FixedWindow {
 
         PCollection<String> windowedMakesTimes = carMakesTimes.apply("Window", Window.into(FixedWindows.of(Duration.standardSeconds(5))));
         PCollection<KV<String, Long>> output = windowedMakesTimes.apply(Count.perElement());
-        output.apply(ParDo.of(new DoFn<KV<String, Long>, Void>() {
+        output.apply(ParDo.of(new DoFn<KV<String, Long>, String>() {
             @ProcessElement
-            public void processElement(ProcessContext c, BoundedWindow window) {
-                System.out.println(String.format("%s %s %s", window.maxTimestamp(), c.element().getKey(), c.element().getValue()));
+            public void processElement(ProcessContext c) {
+                c.output(String.format("%s %s",  c.element().getKey(), c.element().getValue()));
             }
-        }));
+        })).apply(TextIO.write().to("path/to/file").withWindowedWrites());
 
         pipeline.run().waitUntilFinish();
     }
